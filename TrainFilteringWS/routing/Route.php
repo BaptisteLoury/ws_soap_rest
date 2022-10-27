@@ -1,10 +1,15 @@
 <?php
     class Route {
         private $routes = array();
-        
+        private $rootdir = '';
+
+        public function __construct($rootd) {
+            $this->rootdir = $rootd;
+        }
+
         public function add($uri, $function, $method) {
             $this->routes[] = array(
-                'uri' => $uri,
+                'uri' => $this->rootdir . $uri,
                 'function' => $function,
                 'method' => $method
             );
@@ -13,7 +18,7 @@
         public function submit() {
             $uri = $_SERVER['REQUEST_URI'];
             $method = $_SERVER['REQUEST_METHOD'];
-            $servicecalled = str_replace($_SERVER['rootdir'], '', $uri);
+            $servicecalled = str_replace($this->rootdir, '', $uri);
             $found = false;
             // echo "service called: " . $servicecalled . "\n";
 
@@ -38,7 +43,7 @@
                 }
             }
             if (!$found) {
-                echo "404";
+                echo "{\n\t\"status\" : 404\n}";
             }
         }
 
