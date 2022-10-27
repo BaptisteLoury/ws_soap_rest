@@ -13,21 +13,15 @@
     }
 
     function get_train_info($args) {
-        // echo "get_train_info called\n args: ";
-        $trains = get_trains(100);
-        $train = $trains[$args[1]];
-        echo json_encode($train);
-    }
-
-    function get_trains_info($args){
-        // echo "get_trains_info called\n args: ";
-        // var_dump($args);
-        if (count($args) == 0) {
-            // get all trains
-            echo json_encode(get_trains(-1));
-        } else {
-            // get number of trains specified by $args[0]
-            echo json_encode(get_trains($args[0]));
+        if (count($args) == 2) {
+            if (is_numeric($args[1])) {
+                $train = get_trains($args[1]);
+                echo json_encode($train[0]);
+            }
+        }elseif (count($args) == 1) {
+            $train = get_trains(-1);
+            echo json_encode($train);
         }
     }
+
 ?>

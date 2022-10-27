@@ -13,10 +13,9 @@
 
     $route = new Route('/ws_soap_rest/TrainFilteringWS');
 
-    $route->add('/trains/[0-9][0-9]*', 'get_trains_info', 'GET');
-    $route->add('/trains', 'get_trains_info', 'GET');
     $route->add('/trains/info/[0-9][0-9]*', 'get_train_info', 'GET');
-
+    $route->add('/trains/info', 'get_train_info', 'GET');
+    
 
 
     $route->submit();
