@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   tomcat-soap:
-    container_name: tomcat
+    container_name: tomcat-soap
     build:
       context: .
       dockerfile: Dockerfile.tomcat9
@@ -12,11 +12,10 @@ services:
       #   source: ./src
       #   target: /var/www/html
       # - /var/www/html/users
-    # links: 
-    #  - "postgres:container_unposteur"
-    #  - "redis:container_redis"
-  postgres:
-    container_name: postgres
+    links: 
+     - "postgres-soap:dbserver"
+  postgres-soap:
+    container_name: postgres-soap
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -24,20 +23,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.postgres
-    ports: 
-      - "5433:5432"
+    # ports: 
+    #   - "5433:5432"
     restart: unless-stopped
     volumes:
     - postgres_data:/var/lib/postgresql/data:rw
-#   redis:
-#     container_name: "redis"
-#     image: redis:latest
-#     ports:
-#       - "6379:6379"
-#     command:
-#         --requirepass ${REDIS_PWD}
-#     volumes:
-#     - "redis_data:/data"
 
 volumes:
   postgres_data: {}

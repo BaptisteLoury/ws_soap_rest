@@ -1,4 +1,4 @@
-package com.example.producingwebservice;
+package com.train.booking;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;

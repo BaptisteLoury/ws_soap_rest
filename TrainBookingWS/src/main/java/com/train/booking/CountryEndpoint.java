@@ -1,4 +1,4 @@
-package com.example.producingwebservice;
+package com.train.booking;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
