@@ -1,0 +1,7 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://localhost/train/booking"
+           targetNamespace="http://localhost/train/booking" elementFormDefault="qualified">
+
+    <xs:include schemaLocation="countries.xsd"/>
+
+    
+</xs:schema>

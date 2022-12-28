@@ -6,17 +6,17 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import io.spring.guides.gs_producing_web_service.GetCountryRequest;
-import io.spring.guides.gs_producing_web_service.GetCountryResponse;
+import localhost.train.booking.GetCountryRequest;
+import localhost.train.booking.GetCountryResponse;
 
 @Endpoint
-public class CountryEndpoint {
-	private static final String NAMESPACE_URI = "http://spring.io/guides/gs-producing-web-service";
+public class TrainBookingEndpoit {
+	private static final String NAMESPACE_URI = "http://localhost/train/booking";
 
-	private CountryRepository countryRepository;
+	private TrainBookingRepository countryRepository;
 
 	@Autowired
-	public CountryEndpoint(CountryRepository countryRepository) {
+	public TrainBookingEndpoit(TrainBookingRepository countryRepository) {
 		this.countryRepository = countryRepository;
 	}
 

@@ -10,10 +10,10 @@
 		<relativePath />
 	</parent>
 	<groupId>projet.ensiie.ws</groupId>
-	<artifactId>spring-soap</artifactId>
+	<artifactId>train-booking</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>spring-soap</name>
+	<name>train-booking</name>
 	<description>Soap WS Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -75,7 +75,7 @@
 				</executions>
 				<configuration>
 					<sources>
-						<source>${project.basedir}/src/main/resources/countries.xsd</source>
+						<source>${project.basedir}/src/main/resources/xsd/train-booking.xsd</source>
 					</sources>
 				</configuration>
 			</plugin>

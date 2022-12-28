@@ -2,8 +2,8 @@
 				  xmlns:gs="http://localhost/train/booking">
    <soapenv:Header/>
    <soapenv:Body>
-      <gs:getCountryRequest>
+      <!-- <gs:getCountryRequest>
          <gs:name>Spain</gs:name>
-      </gs:getCountryRequest>
+      </gs:getCountryRequest> -->
    </soapenv:Body>
 </soapenv:Envelope>
