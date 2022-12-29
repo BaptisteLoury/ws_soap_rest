@@ -1,6 +1,7 @@
 package com.train.booking;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -13,12 +14,8 @@ import localhost.train.booking.GetCountryResponse;
 public class TrainBookingEndpoit {
 	private static final String NAMESPACE_URI = "http://localhost/train/booking";
 
+	@Resource
 	private TrainBookingRepository countryRepository;
-
-	@Autowired
-	public TrainBookingEndpoit(TrainBookingRepository countryRepository) {
-		this.countryRepository = countryRepository;
-	}
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountryRequest")
 	@ResponsePayload

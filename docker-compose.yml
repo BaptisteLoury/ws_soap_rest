@@ -4,7 +4,7 @@ services:
     container_name: tomcat-soap
     build:
       context: .
-      dockerfile: Dockerfile.tomcat9
+      dockerfile: Dockerfile.soap.tomcat9
     ports:
      - "8181:8080"
     # volumes:
@@ -22,7 +22,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
     build:
       context: .
-      dockerfile: Dockerfile.postgres
+      dockerfile: Dockerfile.soap.postgres
     # ports: 
     #   - "5433:5432"
     restart: unless-stopped
