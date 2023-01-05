@@ -17,6 +17,26 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="signUpRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="firstName" type="xs:string" />
+                <xs:element name="lastName" type="xs:string" />
+                <xs:element name="email" type="xs:string" />
+                <xs:element name="password" type="xs:string" />
+                <xs:element name="birthDate" type="xs:dateTime" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="signUpResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="success" type="xs:boolean" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
     <xs:complexType name="country">
         <xs:sequence>
             <xs:element name="name" type="xs:string" />

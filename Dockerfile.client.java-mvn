@@ -1,6 +1,10 @@
-FROM maven:3.6.3-jdk-8
-# FROM openjdk:8
-ADD ClientApp /home/root/
+# FROM maven:3.6.3-jdk-8
+FROM openjdk:8
+COPY ClientApp/target/client-app.jar /home/root/
 RUN cd /home/root
+CMD ["java", "-jar", "client-app.jar"]
+# ADD ClientApp /home/root/
+# RUN cd /home/root
 # CMD ["tail","-F","anything"]
-CMD ["mvn","spring-boot:run"]
+# CMD ["mvn","spring-boot:run"]
+# CMD ["mvn","exec:java"]
