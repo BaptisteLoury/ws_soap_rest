@@ -1,3 +1,4 @@
 /.metadata/
 TrainBookingWS/target/
 TrainBookingWS/.vscode/
+TrainFilteringWS/mysql/*

@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.phpwebserver
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./TrainFilteringWS:/var/www/html
+    links:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    # essayer avec build context et faire un dockerfile qui fait un chmod de /var/lib/mysql en 777
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - ./TrainFilteringWS/mysql:/var/lib/mysql
+      - ./TrainFilteringWS/sql:/docker-entrypoint-initdb.d
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "9999:9999"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root
+    links:
+      - mysql

@@ -1,10 +1,10 @@
-DROP DATABASE IF EXISTS trains;
-CREATE DATABASE trains;
-USE trains;
+DROP DATABASE IF EXISTS train-filtering;
+CREATE DATABASE train-filtering;
+USE train-filtering;
 
 DROP TABLE IF EXISTS TRAINS;
 
-CREATE TABLE `trains` (
+CREATE TABLE `TRAINS` (
   `TRAIN_ID` int(11) NOT NULL AUTO_INCREMENT,
   `TRAIN_NAME` varchar(50) NOT NULL,
   `TRAIN_SOURCE` varchar(50) NOT NULL,

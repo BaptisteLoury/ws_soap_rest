@@ -1,13 +1,14 @@
 <?php
     class Database{
         private $co;
-        private $host = 'localhost';
+        private $host = 'mysql';
         private $user = 'root';
-        private $pass = '';
-        private $db = 'trains';
+        private $pass = 'root';
+        private $db = 'train-filtering';
+        private $port = 3306;
 
         public function __construct() {
-            $this->co = new mysqli($this->host, $this->user, $this->pass, $this->db);
+            $this->co = new mysqli($this->host, $this->user, $this->pass, $this->db, $this->port);
             if ($this->co->connect_error) {
                 die("Connection failed: " . $this->co->connect_error);
             }
