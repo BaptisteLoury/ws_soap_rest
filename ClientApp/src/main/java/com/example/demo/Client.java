@@ -15,7 +15,7 @@ public class Client extends WebServiceGatewaySupport {
 
   public Client() {
     Jaxb2Marshaller marshaller = AppConfiguration.marshaller();
-    setDefaultUri("http://soap-ws:8080/train-booking/ws");
+    setDefaultUri("http://localhost:8181/train-booking/ws");
     setMarshaller(marshaller);
     setUnmarshaller(marshaller);
   }
@@ -28,7 +28,7 @@ public class Client extends WebServiceGatewaySupport {
     log.info("Requesting location for " + country);
 
     GetCountryResponse response = (GetCountryResponse) getWebServiceTemplate()
-        .marshalSendAndReceive("http://soap-ws:8080/train-booking/ws/trainBooking", request,
+        .marshalSendAndReceive("http://localhost:8181/train-booking/ws/trainBooking", request,
             new SoapActionCallback(
                 "http://localhost/train/booking/GetCountryRequest"));
 

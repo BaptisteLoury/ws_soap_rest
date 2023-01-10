@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.train.booking.model.User;
-
 public class DatabaseManager {
     private static DatabaseManager INSTANCE;
 
@@ -17,7 +15,6 @@ public class DatabaseManager {
         Properties props = new Properties();
         props.setProperty("user", "admin");
         props.setProperty("password", "admin");
-        props.setProperty("ssl", "true");
         
         connection = DriverManager.getConnection(url, props);
     }
@@ -35,14 +32,10 @@ public class DatabaseManager {
         }
     }
 
-    public DatabaseManager getInstance() throws SQLException {
+    public static DatabaseManager getInstance() throws SQLException {
         if(INSTANCE == null) {
             INSTANCE = new DatabaseManager();
         }
         return INSTANCE;
-    }
-
-    public boolean createUser(User user) {
-        return false;
     }
 }

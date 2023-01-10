@@ -13,7 +13,7 @@ public class AppConfiguration {
 
   public static Client countryClient(Jaxb2Marshaller marshaller) {
     Client client = new Client();
-    client.setDefaultUri("http://soap-ws:8080/train-booking/ws");
+    client.setDefaultUri("http://localhost:8181/train-booking/ws");
     client.setMarshaller(marshaller);
     client.setUnmarshaller(marshaller);
     return client;

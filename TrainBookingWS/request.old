@@ -21,3 +21,8 @@ curl --header "content-type: text/xml" -d @TrainBookingWS/signup.xml http://loca
         } catch (NoSuchAlgorithmException e) {
             this.password = ""+password.hashCode();
         }
+
+
+docker build -f Dockerfile.client.java-mvn . -t ws_soap_rest-java-client
+
+docker run --network=host -it ws_soap_rest-java-client bash

@@ -1,0 +1,12 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+   xmlns:gs="http://localhost/train/booking">
+   <soapenv:Header />
+   <soapenv:Body>
+      <gs:signInRequest>
+         <gs:email>Hij</gs:email>
+         <gs:password>Klm</gs:password>
+      </gs:signInRequest>
+
+   </soapenv:Body>
+
+</soapenv:Envelope>

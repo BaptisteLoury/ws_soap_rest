@@ -1,13 +1,5 @@
 version: '3.7'
 services:
-  java-client:
-    container_name: java-client
-    build:
-      context: .
-      dockerfile: Dockerfile.client.java-mvn
-    working_dir: /home/root
-    links:
-     - "tomcat-soap:soap-ws"
   tomcat-soap:
     container_name: tomcat-soap
     build:
@@ -26,8 +18,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.soap.postgres
-    # ports: 
-    #   - "5433:5432"
     restart: unless-stopped
     volumes:
     - postgres_data:/var/lib/postgresql/data:rw

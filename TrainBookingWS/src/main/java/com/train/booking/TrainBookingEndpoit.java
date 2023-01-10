@@ -7,8 +7,17 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import localhost.train.booking.GetCountryRequest;
-import localhost.train.booking.GetCountryResponse;
+import com.train.booking.controller.SignInHandler;
+import com.train.booking.controller.SignUpHandler;
+
+import localhost.train.booking.BookTrainRequest;
+import localhost.train.booking.BookTrainResponse;
+import localhost.train.booking.FetchTrainRequest;
+import localhost.train.booking.FetchTrainResponse;
+import localhost.train.booking.SeeBookingRequest;
+import localhost.train.booking.SeeBookingResponse;
+import localhost.train.booking.SignInRequest;
+import localhost.train.booking.SignInResponse;
 import localhost.train.booking.SignUpRequest;
 import localhost.train.booking.SignUpResponse;
 
@@ -17,22 +26,48 @@ public class TrainBookingEndpoit {
 	private static final String NAMESPACE_URI = "http://localhost/train/booking";
 
 	@Resource
-	private TrainBookingRepository countryRepository;
-
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountryRequest")
-	@ResponsePayload
-	public GetCountryResponse getCountry(@RequestPayload GetCountryRequest request) {
-		GetCountryResponse response = new GetCountryResponse();
-		response.setCountry(countryRepository.findCountry(request.getName()));
-
-		return response;
-	}
+	private SignUpHandler signUp;
+	@Resource
+	private SignInHandler signIn;
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "signUpRequest")
 	@ResponsePayload
 	public SignUpResponse signUp(@RequestPayload SignUpRequest request) {
 		SignUpResponse response = new SignUpResponse();
-		response.setSuccess(true);
+		response.setSuccess(signUp.handle(request));
+
+		return response;
+	}
+
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "signInRequest")
+	@ResponsePayload
+	public SignInResponse signIn(@RequestPayload SignInRequest request) {
+		SignInResponse response = new SignInResponse();
+		response.setToken(signIn.handle(request));
+
+		return response;
+	}
+
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "fetchTrainRequest")
+	@ResponsePayload
+	public FetchTrainResponse fetchTrain(@RequestPayload FetchTrainRequest request) {
+		FetchTrainResponse response = new FetchTrainResponse();
+
+		return response;
+	}
+
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "bookTrainRequest")
+	@ResponsePayload
+	public BookTrainResponse bookTrain(@RequestPayload BookTrainRequest request) {
+		BookTrainResponse response = new BookTrainResponse();
+
+		return response;
+	}
+
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "seeBookingRequest")
+	@ResponsePayload
+	public SeeBookingResponse seeBooking(@RequestPayload SeeBookingRequest request) {
+		SeeBookingResponse response = new SeeBookingResponse();
 
 		return response;
 	}
