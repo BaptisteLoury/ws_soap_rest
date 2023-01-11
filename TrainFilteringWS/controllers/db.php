@@ -4,7 +4,7 @@
         private $host = 'mysql';
         private $user = 'root';
         private $pass = 'root';
-        private $db = 'train-filtering';
+        private $db = 'rest';
         private $port = 3306;
 
         public function __construct() {
