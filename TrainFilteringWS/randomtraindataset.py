@@ -1,6 +1,6 @@
 import random
 
-print("INSERT INTO TRAINS (TRAIN_NAME, TRAIN_SOURCE, TRAIN_DESTINATION, TRAIN_DEPARTURE_TIME, TRAIN_ARRIVAL_TIME, TRAIN_DATE, TRAIN_PRICE, TRAIN_AVAILABILITY) VALUES")
+print("INSERT INTO TRAINS (TRAIN_NAME, TRAIN_SOURCE, TRAIN_DESTINATION, TRAIN_DEPARTURE_TIME, TRAIN_ARRIVAL_TIME, TRAIN_DEPARTURE_DATE, TRAIN_ARRIVAL_DATE, TRAIN_PRICE, TRAIN_AVAILABILITY) VALUES")
 for i in range(25):
     # random date string
     date = "2022-"
@@ -18,12 +18,13 @@ for i in range(25):
     destination = random.choice(["Paris", "Lyon", "Marseille", "Bordeaux", "Lille"])
     while source == destination:
         destination = random.choice(["Paris", "Lyon", "Marseille", "Bordeaux", "Lille"])
-    print("('{}', '{}', '{}', '{}', '{}', '{}', {}, {}),".format(
+    print("('{}', '{}', '{}', '{}', '{}', '{}', '{}', {}, {}),".format(
         random.choice(["Express", "TGV", "TER", "Thalys"]),
         source,
         destination,
         random.choice(["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"]),
         random.choice(["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"]),
+        date,
         date,
         random.randint(50,150),
         random.randint(10,200)

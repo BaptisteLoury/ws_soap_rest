@@ -43,6 +43,7 @@
                 }
             }
             if (!$found) {
+                header('HTTP/1.1 404 Not Found');
                 echo "{\n\t\"status\" : 404\n}";
             }
         }

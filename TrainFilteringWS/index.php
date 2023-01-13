@@ -16,7 +16,12 @@
     $route->add('/trains/[0-9]+', 'get_train_info', 'GET');
     $route->add('/trains', 'get_train_info', 'GET');
     $route->add('/trains/from/[a-zA-Z]+/to/[a-zA-Z]+', 'get_train_info_destination', 'GET');
+    $route->add('/trains/from/[a-zA-Z]+/to/[a-zA-Z]+/departure/[0-9]{4}(-[0-9]{2}){2}_[0-9]{2}:[0-9]{2}', 'get_train_info_destination', 'GET');
+    $route->add('/trains/from/[a-zA-Z]+/to/[a-zA-Z]+/arrival/[0-9]{4}(-[0-9]{2}){2}_[0-9]{2}:[0-9]{2}', 'get_train_info_destination', 'GET');
     
+    // reservations POST (add reservation)
+    // json avec id train, nom, prenom 
+    // reservations/id GET (get reservation)
 
 
     $route->submit();
