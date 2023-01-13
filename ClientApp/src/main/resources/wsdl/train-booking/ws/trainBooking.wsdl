@@ -2,65 +2,219 @@
   <wsdl:types>
     <xs:schema xmlns:tns="http://localhost/train/booking" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://localhost/train/booking">
 
-    <xs:element name="getCountryRequest">
+    <xs:element name="signUpRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="name" type="xs:string"/>
+                <xs:element name="firstName" type="xs:string"/>
+                <xs:element name="lastName" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+                <xs:element name="birthDate" type="xs:dateTime"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="signUpResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="success" type="xs:boolean"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getCountryResponse">
+    <xs:element name="signInRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="country" type="tns:country"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="signInResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="token" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="country">
+    <xs:element name="fetchTrainRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="origin" type="xs:string"/>
+                <xs:element name="destination" type="xs:string"/>
+                <xs:element name="time" type="xs:dateTime"/>
+                <xs:element name="isDepartureTime" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="fetchTrainResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="trains" type="tns:train"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bookTrainRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="trainId" type="xs:string"/>
+                <xs:element name="userToken" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="bookTrainResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="success" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="seeBookingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userToken" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="seeBookingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="trains" type="tns:train"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:complexType name="train">
         <xs:sequence>
-            <xs:element name="name" type="xs:string"/>
-            <xs:element name="population" type="xs:int"/>
-            <xs:element name="capital" type="xs:string"/>
-            <xs:element name="currency" type="tns:currency"/>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="origin" type="xs:string"/>
+            <xs:element name="destination" type="xs:string"/>
+            <xs:element name="departureTime" type="xs:dateTime"/>
+            <xs:element name="arrivalTime" type="xs:dateTime"/>
+            <xs:element name="seatsLeft" type="xs:int"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:simpleType name="currency">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="GBP"/>
-            <xs:enumeration value="EUR"/>
-            <xs:enumeration value="PLN"/>
-        </xs:restriction>
-    </xs:simpleType>
-
 </xs:schema>
   </wsdl:types>
-  <wsdl:message name="getCountryResponse">
-    <wsdl:part element="sch:getCountryResponse" name="getCountryResponse">
+  <wsdl:message name="seeBookingResponse">
+    <wsdl:part element="sch:seeBookingResponse" name="seeBookingResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getCountryRequest">
-    <wsdl:part element="sch:getCountryRequest" name="getCountryRequest">
+  <wsdl:message name="signUpRequest">
+    <wsdl:part element="sch:signUpRequest" name="signUpRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookTrainRequest">
+    <wsdl:part element="sch:bookTrainRequest" name="bookTrainRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="signUpResponse">
+    <wsdl:part element="sch:signUpResponse" name="signUpResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="signInResponse">
+    <wsdl:part element="sch:signInResponse" name="signInResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="signInRequest">
+    <wsdl:part element="sch:signInRequest" name="signInRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fetchTrainResponse">
+    <wsdl:part element="sch:fetchTrainResponse" name="fetchTrainResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fetchTrainRequest">
+    <wsdl:part element="sch:fetchTrainRequest" name="fetchTrainRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookTrainResponse">
+    <wsdl:part element="sch:bookTrainResponse" name="bookTrainResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="seeBookingRequest">
+    <wsdl:part element="sch:seeBookingRequest" name="seeBookingRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="TrainBookingPort">
-    <wsdl:operation name="getCountry">
-      <wsdl:input message="tns:getCountryRequest" name="getCountryRequest">
+    <wsdl:operation name="seeBooking">
+      <wsdl:input message="tns:seeBookingRequest" name="seeBookingRequest">
     </wsdl:input>
-      <wsdl:output message="tns:getCountryResponse" name="getCountryResponse">
+      <wsdl:output message="tns:seeBookingResponse" name="seeBookingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signUp">
+      <wsdl:input message="tns:signUpRequest" name="signUpRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:signUpResponse" name="signUpResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookTrain">
+      <wsdl:input message="tns:bookTrainRequest" name="bookTrainRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:bookTrainResponse" name="bookTrainResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signIn">
+      <wsdl:input message="tns:signInRequest" name="signInRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:signInResponse" name="signInResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchTrain">
+      <wsdl:input message="tns:fetchTrainRequest" name="fetchTrainRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:fetchTrainResponse" name="fetchTrainResponse">
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="TrainBookingPortSoap11" type="tns:TrainBookingPort">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getCountry">
+    <wsdl:operation name="seeBooking">
       <soap:operation soapAction=""/>
-      <wsdl:input name="getCountryRequest">
+      <wsdl:input name="seeBookingRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="getCountryResponse">
+      <wsdl:output name="seeBookingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signUp">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="signUpRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="signUpResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookTrain">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="bookTrainRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bookTrainResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signIn">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="signInRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="signInResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchTrain">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="fetchTrainRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="fetchTrainResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
