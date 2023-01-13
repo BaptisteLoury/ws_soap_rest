@@ -42,7 +42,7 @@
             <xs:sequence>
                 <xs:element name="origin" type="xs:string"/>
                 <xs:element name="destination" type="xs:string"/>
-                <xs:element name="time" type="xs:dateTime"/>
+                <xs:element name="time" type="xs:string"/>
                 <xs:element name="isDepartureTime" type="xs:boolean"/>
             </xs:sequence>
         </xs:complexType>
@@ -66,7 +66,7 @@
     <xs:element name="bookTrainResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="success" type="xs:boolean"/>
+                <xs:element name="success" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -93,7 +93,6 @@
             <xs:element name="destination" type="xs:string"/>
             <xs:element name="departureTime" type="xs:dateTime"/>
             <xs:element name="arrivalTime" type="xs:dateTime"/>
-            <xs:element name="seatsLeft" type="xs:int"/>
         </xs:sequence>
     </xs:complexType>
 

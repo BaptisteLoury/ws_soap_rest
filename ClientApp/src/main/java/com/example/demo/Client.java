@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,20 +10,22 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
+import com.train.booking.wsdl.BookTrainRequest;
+import com.train.booking.wsdl.BookTrainResponse;
+import com.train.booking.wsdl.FetchTrainRequest;
+import com.train.booking.wsdl.FetchTrainResponse;
+import com.train.booking.wsdl.SeeBookingRequest;
+import com.train.booking.wsdl.SeeBookingResponse;
 import com.train.booking.wsdl.SignInRequest;
 import com.train.booking.wsdl.SignInResponse;
 import com.train.booking.wsdl.SignUpRequest;
 import com.train.booking.wsdl.SignUpResponse;
 
 public class Client extends WebServiceGatewaySupport {
-
-  private static final Logger log = LoggerFactory.getLogger(Client.class);
 
   private static String dateFormat = "dd/MM/yyyy";
 
@@ -44,26 +44,48 @@ public class Client extends WebServiceGatewaySupport {
     request.setFirstName(firstName);
 
     XMLGregorianCalendar date = stringToGregorianCal(birthDate);
-    log.info(email+" "+password+" "+lastName+" "+firstName+" "+birthDate);
     request.setBirthDate(date);
 
-    SignUpResponse response = (SignUpResponse) getWebServiceTemplate()
-        .marshalSendAndReceive("http://localhost:8181/train-booking/ws/trainBooking",
-            request,
-            new SoapActionCallback(
-                "http://localhost/train/booking/SignUpRequest"));
+    SignUpResponse response = (SignUpResponse) soapCall("SignUpRequest", request);
 
     return response;
   }
 
   public SignInResponse signIn(String email, String password) {
     SignInRequest request = new SignInRequest();
+    request.setEmail(email);
+    request.setPassword(password);
 
-    SignInResponse response = (SignInResponse) getWebServiceTemplate()
-        .marshalSendAndReceive("http://localhost:8181/train-booking/ws/trainBooking",
-            request,
-            new SoapActionCallback(
-                "http://localhost/train/booking/SignInRequest"));
+    SignInResponse response = (SignInResponse) soapCall("SignInRequest", request);
+
+    return response;
+  }
+
+  public FetchTrainResponse fetchTrain(String origin, String destination, String date, String hour, String isDepartureTime) {
+    FetchTrainRequest request = new FetchTrainRequest();
+    request.setOrigin(origin);
+    request.setDestination(destination);
+
+
+    FetchTrainResponse response = (FetchTrainResponse) soapCall("FetchTrainRequest", request);
+
+    return response;
+  }
+
+  public BookTrainResponse bookTrain(int trainId, String nom, String prenom) {
+    BookTrainRequest request = new BookTrainRequest();
+
+
+    BookTrainResponse response = (BookTrainResponse) soapCall("BookTrainRequest", request);
+
+    return response;
+  }
+
+  public SeeBookingResponse seeBooking(int trainId, String nom, String prenom) {
+    SeeBookingRequest request = new SeeBookingRequest();
+
+
+    SeeBookingResponse response = (SeeBookingResponse) soapCall("SeeBookingRequest", request);
 
     return response;
   }
@@ -85,5 +107,13 @@ public class Client extends WebServiceGatewaySupport {
     } catch (DatatypeConfigurationException e) {
     }
     return gregCal;
+  }
+
+  private Object soapCall(String request, Object payload) {
+    return getWebServiceTemplate()
+    .marshalSendAndReceive("http://localhost:8181/train-booking/ws/trainBooking",
+        payload,
+        new SoapActionCallback(
+            "http://localhost/train/booking/"+request));
   }
 }
