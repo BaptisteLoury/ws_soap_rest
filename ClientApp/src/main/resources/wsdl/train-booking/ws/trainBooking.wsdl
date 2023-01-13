@@ -93,6 +93,7 @@
             <xs:element name="destination" type="xs:string"/>
             <xs:element name="departureTime" type="xs:dateTime"/>
             <xs:element name="arrivalTime" type="xs:dateTime"/>
+            <xs:element name="seatsLeft" type="xs:int" />
         </xs:sequence>
     </xs:complexType>
 

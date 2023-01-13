@@ -23,6 +23,8 @@ public class BookTrainHandler {
         try {
             User usr = DatabaseManager.getInstance().getUser(request.getUserToken());
             if(!tokenManager.isTokenExpired(request.getUserToken())) {
+                
+
 
                 success = 1;
             } else {

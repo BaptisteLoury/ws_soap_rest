@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -61,10 +63,12 @@ public class Client extends WebServiceGatewaySupport {
     return response;
   }
 
-  public FetchTrainResponse fetchTrain(String origin, String destination, String date, String hour, String isDepartureTime) {
+  public FetchTrainResponse fetchTrain(String origin, String destination, String date, String hour, boolean isDepartureTime) {
     FetchTrainRequest request = new FetchTrainRequest();
     request.setOrigin(origin);
     request.setDestination(destination);
+    request.setTime(date+"_"+hour);
+    request.setIsDepartureTime(isDepartureTime);
 
 
     FetchTrainResponse response = (FetchTrainResponse) soapCall("FetchTrainRequest", request);
@@ -72,8 +76,10 @@ public class Client extends WebServiceGatewaySupport {
     return response;
   }
 
-  public BookTrainResponse bookTrain(int trainId, String nom, String prenom) {
+  public BookTrainResponse bookTrain(String trainId, String token) {
     BookTrainRequest request = new BookTrainRequest();
+    request.setTrainId(trainId);
+    request.setUserToken(token);
 
 
     BookTrainResponse response = (BookTrainResponse) soapCall("BookTrainRequest", request);
@@ -81,8 +87,9 @@ public class Client extends WebServiceGatewaySupport {
     return response;
   }
 
-  public SeeBookingResponse seeBooking(int trainId, String nom, String prenom) {
+  public SeeBookingResponse seeBooking(String token) {
     SeeBookingRequest request = new SeeBookingRequest();
+    request.setUserToken(token);
 
 
     SeeBookingResponse response = (SeeBookingResponse) soapCall("SeeBookingRequest", request);
@@ -115,5 +122,33 @@ public class Client extends WebServiceGatewaySupport {
         payload,
         new SoapActionCallback(
             "http://localhost/train/booking/"+request));
+  }
+
+  public boolean isDateValid(String date) {
+    boolean isValid = true;
+
+    DateFormat format = new SimpleDateFormat(dateFormat);
+    format.setLenient(false);
+
+    try {
+      format.parse(date);
+    } catch (ParseException e) {
+      isValid = false;
+    }
+    return isValid;
+  }
+
+  public boolean isTimeValid(String time) {
+    boolean isValid = false;
+
+    Pattern p = Pattern.compile("(?<hour>[0-9]{2}):(?<minutes>[0-9]{2})");
+    Matcher m = p.matcher(time);
+    if(m.matches()) {
+      Integer hours = Integer.parseInt(m.group("hours"));
+      Integer minutes = Integer.parseInt(m.group("minutes"));
+      isValid = hours < 24 && minutes < 60;
+    }
+
+    return isValid;
   }
 }
