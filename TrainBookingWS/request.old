@@ -25,4 +25,4 @@ curl --header "content-type: text/xml" -d @TrainBookingWS/signup.xml http://loca
 
 docker build -f Dockerfile.client.java-mvn . -t ws_soap_rest-java-client
 
-docker run --network=host -it ws_soap_rest-java-client bash
+docker run --network=host -it ws_soap_rest-java-client java -jar client-app.jar

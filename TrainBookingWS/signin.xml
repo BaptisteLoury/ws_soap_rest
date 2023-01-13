@@ -3,8 +3,8 @@
    <soapenv:Header />
    <soapenv:Body>
       <gs:signInRequest>
-         <gs:email>Hij</gs:email>
-         <gs:password>Klm</gs:password>
+         <gs:email>test</gs:email>
+         <gs:password>test</gs:password>
       </gs:signInRequest>
 
    </soapenv:Body>

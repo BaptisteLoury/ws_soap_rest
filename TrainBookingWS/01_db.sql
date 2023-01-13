@@ -11,3 +11,10 @@ CREATE TABLE main.users
     user_token TEXT,
     PRIMARY KEY (user_id)
 );
+
+CREATE TABLE main.usersHasBooking
+{
+    user_id INT,
+    booking_id INT,
+    FOREIGN KEY (user_id) REFERENCES main.users (user_id);
+}
