@@ -17,10 +17,14 @@
             if (is_numeric($args[0])) {
                 $id = $args[0];
                 $train = get_trains("AND TRAIN_ID = $id");
+                header('HTTP/1.1 200 OK');
+                header('Content-Type: application/json');
                 echo json_encode($train[0]);
             }
         }elseif (count($args) == 0) {
             $train = get_trains(null);
+            header('HTTP/1.1 200 OK');
+            header('Content-Type: application/json');
             echo json_encode($train);
         }
     }
@@ -64,6 +68,7 @@
                 $condition .= "AND TRAIN_SOURCE = '$source' AND TRAIN_DESTINATION = '$destination' ";
                 $train = get_trains($condition);
                 header('HTTP/1.1 200 OK');
+                header('Content-Type: application/json');
                 echo json_encode($train);
             }else{
                 header('HTTP/1.1 412 Precondition Failed');
