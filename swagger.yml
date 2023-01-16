@@ -1,0 +1,229 @@
+openapi: 3.0.0
+servers:
+  - description: REST API Train Filtering
+    url: https://localhost:80
+info:
+  version: "1.0.0"
+  title: rest-api
+  description: The API for the Webservices projetct, filtering trains
+paths:
+  /trains:
+    get:
+      tags:
+        - Trains
+      description: returns all registered trains
+      operationId: get_train_info
+      responses:
+        '200':
+          description: All trains
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: [{"TRAIN_ID":"1","TRAIN_NAME":"TGV","TRAIN_SOURCE":"Bordeaux","TRAIN_DESTINATION":"Paris","TRAIN_DEPARTURE_TIME":"13:00","TRAIN_ARRIVAL_TIME":"16:00","TRAIN_DEPARTURE_DATE":"2022-11-24","TRAIN_ARRIVAL_DATE":"2022-11-24","TRAIN_PRICE":"64","TRAIN_AVAILABILITY":"47"},{"TRAIN_ID":"2","TRAIN_NAME":"TGV","TRAIN_SOURCE":"Lyon","TRAIN_DESTINATION":"Bordeaux","TRAIN_DEPARTURE_TIME":"17:00","TRAIN_ARRIVAL_TIME":"09:00","TRAIN_DEPARTURE_DATE":"2022-12-28","TRAIN_ARRIVAL_DATE":"2022-12-28","TRAIN_PRICE":"76","TRAIN_AVAILABILITY":"36"}]
+  /trains/{train_id}:
+    get:
+      tags:
+        - Trains
+      description: returns a specific train
+      operationId: get_train_info_id
+      parameters:
+        - name: train_id
+          in: path
+          description: ID of the train to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A train
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: {"TRAIN_ID":"1","TRAIN_NAME":"TGV","TRAIN_SOURCE":"Bordeaux","TRAIN_DESTINATION":"Paris","TRAIN_DEPARTURE_TIME":"13:00","TRAIN_ARRIVAL_TIME":"16:00","TRAIN_DEPARTURE_DATE":"2022-11-24","TRAIN_ARRIVAL_DATE":"2022-11-24","TRAIN_PRICE":"64","TRAIN_AVAILABILITY":"47"}
+        '404':
+          description: Train not found
+          content:
+            application/json:
+              schema:
+                type: string
+  /trains/from/{train_source}/to/{train_destination}:
+    get:
+      tags:
+        - Trains
+      description: returns all trains from a specific source to a specific destination
+      operationId: get_train_info_source_destination
+      parameters:
+        - name: train_source
+          in: path
+          description: source of the train to return
+          required: true
+          schema:
+            type: string
+        - name: train_destination
+          in: path
+          description: destination of the train to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A train
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: [{"TRAIN_ID":"1","TRAIN_NAME":"TGV","TRAIN_SOURCE":"Bordeaux","TRAIN_DESTINATION":"Paris","TRAIN_DEPARTURE_TIME":"13:00","TRAIN_ARRIVAL_TIME":"16:00","TRAIN_DEPARTURE_DATE":"2022-11-24","TRAIN_ARRIVAL_DATE":"2022-11-24","TRAIN_PRICE":"64","TRAIN_AVAILABILITY":"47"},{"TRAIN_ID":"2","TRAIN_NAME":"TGV","TRAIN_SOURCE":"Lyon","TRAIN_DESTINATION":"Bordeaux","TRAIN_DEPARTURE_TIME":"17:00","TRAIN_ARRIVAL_TIME":"09:00","TRAIN_DEPARTURE_DATE":"2022-12-28","TRAIN_ARRIVAL_DATE":"2022-12-28","TRAIN_PRICE":"76","TRAIN_AVAILABILITY":"36"}]
+        '404':
+          description: Train not found
+          content:
+            application/json:
+              schema:
+                type: string
+  /trains/from/{train_source}/to/{train_destination}/departure/{train_date}:
+    get:
+      tags:
+        - Trains
+      description: returns all trains from a specific source to a specific destination on a specific date
+      operationId: get_train_info_source_destination_date
+      parameters:
+        - name: train_source
+          in: path
+          description: source of the train to return
+          required: true
+          schema:
+            type: string
+        - name: train_destination
+          in: path
+          description: destination of the train to return
+          required: true
+          schema:
+            type: string
+        - name: train_date
+          in: path
+          description: datetime of the train to return on the format YYYY-MM-DD_HH:MM
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A train
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: [{"TRAIN_ID":"1","TRAIN_NAME":"TGV","TRAIN_SOURCE":"Bordeaux","TRAIN_DESTINATION":"Paris","TRAIN_DEPARTURE_TIME":"13:00","TRAIN_ARRIVAL_TIME":"16:00","TRAIN_DEPARTURE_DATE":"2022-11-24","TRAIN_ARRIVAL_DATE":"2022-11-24","TRAIN_PRICE":"64","TRAIN_AVAILABILITY":"47"},{"TRAIN_ID":"2","TRAIN_NAME":"TGV","TRAIN_SOURCE":"Lyon","TRAIN_DESTINATION":"Bordeaux","TRAIN_DEPARTURE_TIME":"17:00","TRAIN_ARRIVAL_TIME":"09:00","TRAIN_DEPARTURE_DATE":"2022-12-28","TRAIN_ARRIVAL_DATE":"2022-12-28","TRAIN_PRICE":"76","TRAIN_AVAILABILITY":"36"}]
+        '404':
+          description: Train not found
+          content:
+            application/json:
+              schema:
+                type: string
+  /trains/from/{train_source}/to/{train_destination}/arrival/{train_arrival_date}:
+    get:
+      tags:
+        - Trains
+      description: returns all trains from a specific source to a specific destination on a specific arrival date
+      operationId: get_train_info_source_destination_arrival_date
+      parameters:
+        - name: train_source
+          in: path
+          description: source of the train to return
+          required: true
+          schema:
+            type: string
+        - name: train_destination
+          in: path
+          description: destination of the train to return
+          required: true
+          schema:
+            type: string
+        - name: train_arrival_date
+          in: path
+          description: datetime of the train to return on the format YYYY-MM-DD_HH:MM
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A train
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: [{"TRAIN_ID":"1","TRAIN_NAME":"TGV","TRAIN_SOURCE":"Bordeaux","TRAIN_DESTINATION":"Paris","TRAIN_DEPARTURE_TIME":"13:00","TRAIN_ARRIVAL_TIME":"16:00","TRAIN_DEPARTURE_DATE":"2022-11-24","TRAIN_ARRIVAL_DATE":"2022-11-24","TRAIN_PRICE":"64","TRAIN_AVAILABILITY":"47"},{"TRAIN_ID":"2","TRAIN_NAME":"TGV","TRAIN_SOURCE":"Lyon","TRAIN_DESTINATION":"Bordeaux","TRAIN_DEPARTURE_TIME":"17:00","TRAIN_ARRIVAL_TIME":"09:00","TRAIN_DEPARTURE_DATE":"2022-12-28","TRAIN_ARRIVAL_DATE":"2022-12-28","TRAIN_PRICE":"76","TRAIN_AVAILABILITY":"36"}]
+        '404':
+          description: Train not found
+          content:
+            application/json:
+              schema:
+                type: string
+  /reservations:
+    post:
+      tags:
+        - Reservations
+      description: creates a new reservation
+      operationId: create_reservation
+      requestBody:
+        description: reservation to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reservation_train_id:
+                  type: string
+                  example: 1
+                reservation_lastname:
+                  type: string
+                  example: Doe
+                reservation_firstname:
+                  type: string
+                  example: John
+      responses:
+        '200':
+          description: Reservation created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 1
+  /reservations/{reservation_id}:
+    get:
+      tags:
+        - Reservations
+      description: returns a reservation
+      operationId: get_reservation
+      parameters:
+        - name: reservation_id
+          in: path
+          description: id of the reservation to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A reservation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"RESERVATION_ID":"1","RESERVATION_TRAIN_ID":"1","RESERVATION_LASTNAME":"Doe","RESERVATION_FIRSTNAME":"John"}
+        '404':
+          description: Reservation not found
+          content:
+            application/json:
+              schema:
+                type: string
