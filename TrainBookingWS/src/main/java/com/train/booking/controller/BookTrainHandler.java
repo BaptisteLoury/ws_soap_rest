@@ -1,5 +1,6 @@
 package com.train.booking.controller;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.annotation.Resource;
@@ -22,11 +23,19 @@ public class BookTrainHandler {
     public int handle(BookTrainRequest request) {
         int success = -1;
 
+        String insertReserv = "INSERT INTO main.usersHasBooking(user_id, booking_id) VALUES(?, ?)";
+
         try {
             User usr = DatabaseManager.getInstance().getUser(request.getUserToken());
             if(!tokenManager.isTokenExpired(request.getUserToken())) {
-                int reservId = rest.bookTrain(request.getTrainId(), usr.getLastName(), usr.getFirstName());
-                System.out.println(reservId);
+                int reservId = rest.bookTrain(request.getTrainId(), request.getLastName(), request.getFirstName());
+
+                PreparedStatement stmt = DatabaseManager.getInstance().getConnection().prepareStatement(insertReserv);
+                stmt.setInt(1, usr.getId());
+                stmt.setInt(2, reservId);
+
+                stmt.executeUpdate();
+
 
                 success = 1;
             } else {

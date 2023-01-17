@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.train.booking.model.rest.ReservationRest;
 import com.train.booking.model.rest.TrainRest;
 
 import localhost.train.booking.Train;
@@ -23,9 +24,15 @@ public class RestHandler {
     private static final String reservUrl = "http://restserver/reservationsjson";
     RestTemplate template = new RestTemplate();
 
-    public List<Train> fetchTrains(String orig, String dest, String time) {
+    public List<Train> fetchTrains(String orig, String dest, String time, boolean isDepartureTime) {
 
         String url = trainsUrl + "/from/" + orig + "/to/" + dest;
+
+        if(isDepartureTime) {
+            url += "/departure/"+time;
+        } else {
+            url += "/arrival/"+time;
+        }
 
         TrainRest[] trainArr = template.getForObject(url, TrainRest[].class);
 
@@ -49,8 +56,12 @@ public class RestHandler {
 
         HttpEntity<String> request = new HttpEntity<String>(json.toString(), headers);
 
-        Integer id = template.postForObject(reservUrl, request, Integer.class);
+        ReservationRest reserv = template.postForObject(reservUrl, request, ReservationRest.class);
 
-        return id != null ? id : -1;
+        int id = -1;
+        if(reserv != null && reserv.getId() != null) {
+            id = Integer.parseInt(reserv.getId());
+        }
+        return id;
     }
 }

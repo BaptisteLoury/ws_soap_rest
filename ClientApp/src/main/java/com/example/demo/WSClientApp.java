@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.train.booking.wsdl.BookTrainResponse;
 import com.train.booking.wsdl.FetchTrainResponse;
+import com.train.booking.wsdl.Reservation;
 import com.train.booking.wsdl.SeeBookingResponse;
 import com.train.booking.wsdl.SignInResponse;
 import com.train.booking.wsdl.SignUpResponse;
@@ -32,7 +33,7 @@ public class WSClientApp {
 
 			switch (sc.nextInt()) {
 				case 1:
-					keep = 	loginMenu();
+					keep = loginMenu();
 					break;
 				case 2:
 					signUpMenu();
@@ -96,8 +97,6 @@ public class WSClientApp {
 
 		SignInResponse response = client.signIn(email, password);
 
-		System.out.println(response.getToken());
-
 		if("err".equals(response.getToken())) {
 			System.out.println("Email ou mot de passe erroné");
 		} else {
@@ -149,6 +148,8 @@ public class WSClientApp {
 	private void fetchTrain() {
 		System.out.println("\n\n\n");
 
+		sc.nextLine();
+
 		System.out.println("Saisir une gare de départ :");
 		String origin = sc.nextLine();
 
@@ -157,9 +158,10 @@ public class WSClientApp {
 
 		int dateType = 0;
 
-		while(dateType != 1 || dateType != 2) {
+		while(dateType != 1 && dateType != 2) {
 			System.out.println("Allez-vous saisir une date de départ (1) ou d'arrivée (2) ?");
 			dateType = sc.nextInt();
+			sc.nextLine();
 		}
 
 		boolean valid = false;
@@ -217,10 +219,18 @@ public class WSClientApp {
 		System.out.println("\n\n\n");
 		System.out.println("Réservation");
 
+		sc.nextLine();
+
 		System.out.println("Saisir l'identifiant du train :");
 		String trainId = sc.nextLine();
 
-		BookTrainResponse response = client.bookTrain(trainId, token);
+		System.out.println("Saisir le prénom du passager :");
+		String firstName = sc.nextLine();
+
+		System.out.println("Saisir son nom de famille :");
+		String lastName = sc.nextLine();
+
+		BookTrainResponse response = client.bookTrain(trainId, token, firstName, lastName);
 
 		switch(response.getSuccess()) {
 			case -1:
@@ -250,8 +260,11 @@ public class WSClientApp {
 
 		if(response.isTokenValid()) {
 			System.out.println("Vos réservations :");
-			for(Train train : response.getTrains()) {
+			for(Reservation reserv : response.getReservations()) {
+				System.out.println("Au nom de : "+reserv.getFirstName()+" "+reserv.getLastName());
+				Train train = reserv.getTrain();
 				System.out.println("Identifiant : "+train.getId()+" | Gare de départ : "+train.getOrigin()+" | Gare d'arrivée : "+train.getDestination()+" : "+train.getId()+" | Date de départ : "+train.getDepartureTime()+" | Date d'arrivée : "+train.getArrivalTime());
+				System.out.println();
 			}
 		} else {
 			System.out.println("Votre session a expiré, vous allez être déconnecté.");

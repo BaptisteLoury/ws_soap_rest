@@ -2,7 +2,7 @@
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.3.2 
 // Voir <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2023.01.17 à 06:27:11 PM CET 
+// Généré le : 2023.01.17 à 07:01:42 PM CET 
 //
 
 
@@ -27,6 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="trainId" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="userToken" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,7 +40,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "trainId",
-    "userToken"
+    "userToken",
+    "firstName",
+    "lastName"
 })
 @XmlRootElement(name = "bookTrainRequest")
 public class BookTrainRequest {
@@ -47,6 +51,10 @@ public class BookTrainRequest {
     protected String trainId;
     @XmlElement(required = true)
     protected String userToken;
+    @XmlElement(required = true)
+    protected String firstName;
+    @XmlElement(required = true)
+    protected String lastName;
 
     /**
      * Obtient la valeur de la propriété trainId.
@@ -94,6 +102,54 @@ public class BookTrainRequest {
      */
     public void setUserToken(String value) {
         this.userToken = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété firstName.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * Définit la valeur de la propriété firstName.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFirstName(String value) {
+        this.firstName = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété lastName.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * Définit la valeur de la propriété lastName.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLastName(String value) {
+        this.lastName = value;
     }
 
 }

@@ -16,7 +16,7 @@ public class FetchTrainHandler {
     RestHandler rest;
     
     public List<Train> handle(FetchTrainRequest request) {
-        List<Train> trains = rest.fetchTrains(request.getOrigin(), request.getDestination(), request.getTime());
+        List<Train> trains = rest.fetchTrains(request.getOrigin(), request.getDestination(), request.getTime(), request.isIsDepartureTime());
 
         return trains;
     }

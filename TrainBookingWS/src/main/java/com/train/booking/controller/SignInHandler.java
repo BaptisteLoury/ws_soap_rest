@@ -24,21 +24,17 @@ public class SignInHandler {
         String updateUser = "UPDATE main.USERS SET user_token = ? WHERE user_id = ?";
 
         try(PreparedStatement stmt = DatabaseManager.getInstance().getConnection().prepareStatement(selectUser)) {
-            System.err.println("POST prepare");
             stmt.setString(1, request.getEmail());
             stmt.setString(2, request.getPassword());
 
             ResultSet res = stmt.executeQuery();
-            System.err.println("POST exec");
             if(res.next()) {
                 PreparedStatement stmt2 = DatabaseManager.getInstance().getConnection().prepareStatement(updateUser);
-                System.err.println("POST next + prepare");
                 String tempToken = tokenManager.genToken();
                 stmt2.setString(1, tempToken);
                 stmt2.setInt(2, res.getInt(1));
 
                 stmt2.executeUpdate();
-                System.err.println("POST exec update");
 
                 token = tempToken;
             }

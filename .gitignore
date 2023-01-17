@@ -1,3 +1,11 @@
 /.metadata/
+TrainBookingWS/target/classes/
+TrainBookingWS/target/generated-sources/
+TrainBookingWS/target/generated-test-sources/
+TrainBookingWS/target/jaxb2/
+TrainBookingWS/target/maven-archiver/
+TrainBookingWS/target/maven-status/
+TrainBookingWS/target/test-classes/
+TrainBookingWS/target/train-booking/
 TrainBookingWS/.vscode/
 TrainFilteringWS/mysql/*

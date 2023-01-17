@@ -59,6 +59,8 @@
             <xs:sequence>
                 <xs:element name="trainId" type="xs:string" />
                 <xs:element name="userToken" type="xs:string" />
+                <xs:element name="firstName" type="xs:string"/>
+                <xs:element name="lastName" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -81,7 +83,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="tokenValid" type="xs:boolean" />
-                <xs:element name="trains" type="tns:train" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="reservations" type="tns:reservation" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -94,6 +96,14 @@
             <xs:element name="departureTime" type="xs:dateTime" />
             <xs:element name="arrivalTime" type="xs:dateTime" />
             <xs:element name="seatsLeft" type="xs:int" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="reservation">
+        <xs:sequence>
+            <xs:element name="train" type="tns:train" />
+            <xs:element name="firstName" type="xs:string"/>
+            <xs:element name="lastName" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 

@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 import com.train.booking.database.DatabaseManager;
 import com.train.booking.model.User;
 
+import localhost.train.booking.Reservation;
 import localhost.train.booking.SeeBookingRequest;
 import localhost.train.booking.SeeBookingResponse;
-import localhost.train.booking.Train;
 
 @Component
 public class SeeBookingHandler {
@@ -24,7 +24,7 @@ public class SeeBookingHandler {
     private TokenManager tokenManager;
     
     public SeeBookingResponse handle(SeeBookingRequest request) {
-        List<Train> trains = new ArrayList<>();
+        List<Reservation> reservations = new ArrayList<>();
 
         String selectReserv = "SELECT booking_id FROM main.USERSHASBOOKING WHERE user_id = ?";
         boolean tokenValid = true;
@@ -51,7 +51,7 @@ public class SeeBookingHandler {
 
         SeeBookingResponse response = new SeeBookingResponse();
         response.setTokenValid(tokenValid);
-        response.getTrains().addAll(trains);
+        response.getReservations().addAll(reservations);
 
         return response;
     }

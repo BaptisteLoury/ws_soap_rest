@@ -76,10 +76,12 @@ public class Client extends WebServiceGatewaySupport {
     return response;
   }
 
-  public BookTrainResponse bookTrain(String trainId, String token) {
+  public BookTrainResponse bookTrain(String trainId, String token, String firstName, String lastName) {
     BookTrainRequest request = new BookTrainRequest();
     request.setTrainId(trainId);
     request.setUserToken(token);
+    request.setFirstName(firstName);
+    request.setLastName(lastName);
 
 
     BookTrainResponse response = (BookTrainResponse) soapCall("BookTrainRequest", request);
@@ -141,7 +143,7 @@ public class Client extends WebServiceGatewaySupport {
   public boolean isTimeValid(String time) {
     boolean isValid = false;
 
-    Pattern p = Pattern.compile("(?<hour>[0-9]{2}):(?<minutes>[0-9]{2})");
+    Pattern p = Pattern.compile("(?<hours>[0-9]{2}):(?<minutes>[0-9]{2})");
     Matcher m = p.matcher(time);
     if(m.matches()) {
       Integer hours = Integer.parseInt(m.group("hours"));

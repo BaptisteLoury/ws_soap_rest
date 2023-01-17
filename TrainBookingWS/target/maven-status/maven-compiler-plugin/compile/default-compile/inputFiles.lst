@@ -10,6 +10,7 @@
 /home/asmadas/git-repo/ws_soap_rest/TrainBookingWS/src/main/java/com/train/booking/controller/BookTrainHandler.java
 /home/asmadas/git-repo/ws_soap_rest/TrainBookingWS/src/main/java/com/train/booking/controller/TokenManager.java
 /home/asmadas/git-repo/ws_soap_rest/TrainBookingWS/target/generated-sources/jaxb/localhost/train/booking/FetchTrainResponse.java
+/home/asmadas/git-repo/ws_soap_rest/TrainBookingWS/target/generated-sources/jaxb/localhost/train/booking/Reservation.java
 /home/asmadas/git-repo/ws_soap_rest/TrainBookingWS/target/generated-sources/jaxb/localhost/train/booking/ObjectFactory.java
 /home/asmadas/git-repo/ws_soap_rest/TrainBookingWS/target/generated-sources/jaxb/localhost/train/booking/SignUpResponse.java
 /home/asmadas/git-repo/ws_soap_rest/TrainBookingWS/src/main/java/com/train/booking/TrainBookingWS.java

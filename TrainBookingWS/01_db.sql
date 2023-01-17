@@ -13,8 +13,8 @@ CREATE TABLE main.users
 );
 
 CREATE TABLE main.usersHasBooking
-{
+(
     user_id INT,
     booking_id INT,
-    FOREIGN KEY (user_id) REFERENCES main.users (user_id);
-}
+    FOREIGN KEY (user_id) REFERENCES main.users (user_id)
+);
