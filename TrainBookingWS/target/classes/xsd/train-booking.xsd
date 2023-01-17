@@ -1,0 +1,100 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://localhost/train/booking"
+    targetNamespace="http://localhost/train/booking" elementFormDefault="qualified">
+
+    <xs:element name="signUpRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="firstName" type="xs:string" />
+                <xs:element name="lastName" type="xs:string" />
+                <xs:element name="email" type="xs:string" />
+                <xs:element name="password" type="xs:string" />
+                <xs:element name="birthDate" type="xs:dateTime" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="signUpResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="success" type="xs:boolean" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="signInRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string" />
+                <xs:element name="password" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="signInResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="token" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="fetchTrainRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="origin" type="xs:string" />
+                <xs:element name="destination" type="xs:string" />
+                <xs:element name="time" type="xs:string" />
+                <xs:element name="isDepartureTime" type="xs:boolean" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="fetchTrainResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="trains" type="tns:train" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bookTrainRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="trainId" type="xs:string" />
+                <xs:element name="userToken" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="bookTrainResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="success" type="xs:int" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="seeBookingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userToken" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="seeBookingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="tokenValid" type="xs:boolean" />
+                <xs:element name="trains" type="tns:train" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:complexType name="train">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="origin" type="xs:string" />
+            <xs:element name="destination" type="xs:string" />
+            <xs:element name="departureTime" type="xs:dateTime" />
+            <xs:element name="arrivalTime" type="xs:dateTime" />
+            <xs:element name="seatsLeft" type="xs:int" />
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

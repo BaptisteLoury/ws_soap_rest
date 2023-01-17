@@ -20,7 +20,7 @@ import localhost.train.booking.Train;
 public class RestHandler {
 
     private static final String trainsUrl = "http://restserver/trains";
-    private static final String reservUrl = "http://restserver/reservations";
+    private static final String reservUrl = "http://restserver/reservationsjson";
     RestTemplate template = new RestTemplate();
 
     public List<Train> fetchTrains(String orig, String dest, String time) {
@@ -43,7 +43,7 @@ public class RestHandler {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         JSONObject json = new JSONObject();
-        json.put("train_id", trainId);
+        json.put("train_id", Integer.parseInt(trainId));
         json.put("first_name", firstName);
         json.put("last_name", lastName);
 

@@ -1,0 +1,13 @@
+localhost/train/booking/Train.class
+localhost/train/booking/FetchTrainResponse.class
+localhost/train/booking/SignUpResponse.class
+localhost/train/booking/BookTrainResponse.class
+localhost/train/booking/SeeBookingResponse.class
+localhost/train/booking/package-info.class
+localhost/train/booking/SignInRequest.class
+localhost/train/booking/SignInResponse.class
+localhost/train/booking/SignUpRequest.class
+localhost/train/booking/SeeBookingRequest.class
+localhost/train/booking/BookTrainRequest.class
+localhost/train/booking/ObjectFactory.class
+localhost/train/booking/FetchTrainRequest.class
