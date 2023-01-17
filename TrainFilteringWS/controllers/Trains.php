@@ -127,11 +127,6 @@
         $db->execute("INSERT INTO RESERVATIONS (RESERVATION_FIRSTNAME, RESERVATION_LASTNAME, TRAIN_ID) VALUES ('$first_name', '$last_name', $train_id)");
         $reservation = $db->select("SELECT MAX(RESERVATION_ID) AS RESERVATION_ID FROM RESERVATIONS WHERE RESERVATION_FIRSTNAME = '$first_name' AND RESERVATION_LASTNAME = '$last_name' AND TRAIN_ID = $train_id");
         $reservation = $reservation[0];
-        $reservation['TRAIN_ID'] = $db->select("SELECT * FROM TRAINS WHERE TRAIN_ID = $train_id")[0];
-        $reservation['TRAIN'] = $reservation['TRAIN_ID'];
-        $reservation['first_name'] = $first_name;
-        $reservation['last_name'] = $last_name;
-        unset($reservation['TRAIN_ID']);
         header('HTTP/1.1 200 OK');
         header('Content-Type: application/json');
         echo json_encode($reservation);
@@ -148,9 +143,19 @@
                     echo "412 Precondition Failed no reservation with this id";
                     return;
                 }
+                $reservation = $reservation[0];
+                $first_name = $reservation['RESERVATION_FIRSTNAME'];
+                $last_name = $reservation['RESERVATION_LASTNAME'];
+                $train_id = $reservation['TRAIN_ID'];
+                $train = $db->select("SELECT * FROM TRAINS WHERE TRAIN_ID = $train_id");
+                $train = $train[0];
+                $reservation['TRAIN'] = $train;
+                $reservation['RESERVATION_FIRSTNAME'] = $first_name;
+                $reservation['RESERVATION_LASTNAME'] = $last_name;
+                unset($reservation['TRAIN_ID']);
                 header('HTTP/1.1 200 OK');
                 header('Content-Type: application/json');
-                echo json_encode($reservation[0]);
+                echo json_encode($reservation);
             }
         }elseif (count($args) == 0) {
             $db = new Database();
