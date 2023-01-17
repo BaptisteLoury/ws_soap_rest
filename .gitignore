@@ -1,4 +1,8 @@
 /.metadata/
+ClientApp/target/classes/
+ClientApp/target/generated-sources/
+ClientApp/target/maven-archiver/
+ClientApp/target/maven-status/
 TrainBookingWS/target/classes/
 TrainBookingWS/target/generated-sources/
 TrainBookingWS/target/generated-test-sources/

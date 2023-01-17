@@ -1,7 +1,6 @@
 package com.train.booking.controller;
 
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 import javax.annotation.Resource;
 
@@ -42,8 +41,8 @@ public class BookTrainHandler {
                 success = -2;
             }
 
-        } catch(SQLException e) {
-
+        } catch(Exception e) {
+            // do nothing
         }   
 
         return success;

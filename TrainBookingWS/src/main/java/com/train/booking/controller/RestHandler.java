@@ -10,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.train.booking.model.rest.ReservationRest;
@@ -56,7 +57,12 @@ public class RestHandler {
 
         HttpEntity<String> request = new HttpEntity<String>(json.toString(), headers);
 
-        ReservationRest reserv = template.postForObject(reservUrl, request, ReservationRest.class);
+        ReservationRest reserv = null;
+        try {
+            reserv = template.postForObject(reservUrl, request, ReservationRest.class);
+        } catch(RestClientException e) {
+            // do nothing
+        }
 
         int id = -1;
         if(reserv != null && reserv.getId() != null) {
