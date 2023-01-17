@@ -21,7 +21,7 @@ import localhost.train.booking.Train;
 public class RestHandler {
 
     private static final String trainsUrl = "http://restserver/trains";
-    private static final String reservUrl = "http://restserver/reservationsjson";
+    private static final String reservUrl = "http://restserver/reservations";
     RestTemplate template = new RestTemplate();
 
     public List<Train> fetchTrains(String orig, String dest, String time, boolean isDepartureTime) {
@@ -50,7 +50,7 @@ public class RestHandler {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         JSONObject json = new JSONObject();
-        json.put("train_id", Integer.parseInt(trainId));
+        json.put("train_id", trainId);
         json.put("first_name", firstName);
         json.put("last_name", lastName);
 
@@ -63,5 +63,13 @@ public class RestHandler {
             id = Integer.parseInt(reserv.getId());
         }
         return id;
+    }
+
+    public ReservationRest seeBooking(int reservationId) {
+        ReservationRest reserv = new ReservationRest();
+
+        reserv = template.getForObject(reservUrl+"/"+reservationId, ReservationRest.class);
+
+        return reserv;
     }
 }

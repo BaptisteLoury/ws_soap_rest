@@ -29,7 +29,7 @@ import com.train.booking.wsdl.SignUpResponse;
 
 public class Client extends WebServiceGatewaySupport {
 
-  private static String dateFormat = "dd/MM/yyyy";
+  private static String dateFormat = "yyyy-MM-dd";
 
   public Client() {
     Jaxb2Marshaller marshaller = AppConfiguration.marshaller();

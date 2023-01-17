@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.train.booking.database.DatabaseManager;
 import com.train.booking.model.User;
+import com.train.booking.model.rest.ReservationRest;
 
 import localhost.train.booking.Reservation;
 import localhost.train.booking.SeeBookingRequest;
@@ -22,6 +23,8 @@ public class SeeBookingHandler {
 
     @Resource
     private TokenManager tokenManager;
+    @Resource
+    private RestHandler rest;
     
     public SeeBookingResponse handle(SeeBookingRequest request) {
         List<Reservation> reservations = new ArrayList<>();
@@ -39,7 +42,9 @@ public class SeeBookingHandler {
                 ResultSet result = stmt.executeQuery();
     
                 while(result.next()) {
-                    
+                    ReservationRest reserv = rest.seeBooking(result.getInt(1));
+
+                    reservations.add(reserv.toSoap());
                 }
 
             } else {

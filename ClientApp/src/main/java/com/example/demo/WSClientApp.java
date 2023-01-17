@@ -170,10 +170,10 @@ public class WSClientApp {
 		while(!valid) {
 			switch(dateType) {
 				case 1:
-					System.out.println("Saisir une date de départ (sous la forme jj/MM/AAAA)");
+					System.out.println("Saisir une date de départ (sous la forme AAAA-MM-jj)");
 					break;
 				case 2:
-					System.out.println("Saisir une date d'arrivée (sous la forme jj/MM/AAAA)");
+					System.out.println("Saisir une date d'arrivée (sous la forme AAAA-MM-jj)");
 					break;
 				default:
 					break;
