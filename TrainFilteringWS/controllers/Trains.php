@@ -129,6 +129,8 @@
         $reservation = $reservation[0];
         $reservation['TRAIN_ID'] = $db->select("SELECT * FROM TRAINS WHERE TRAIN_ID = $train_id")[0];
         $reservation['TRAIN'] = $reservation['TRAIN_ID'];
+        $reservation['first_name'] = $first_name;
+        $reservation['last_name'] = $last_name;
         unset($reservation['TRAIN_ID']);
         header('HTTP/1.1 200 OK');
         header('Content-Type: application/json');
