@@ -80,6 +80,7 @@
     <xs:element name="seeBookingResponse">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="tokenValid" type="xs:boolean" />
                 <xs:element name="trains" type="tns:train" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>

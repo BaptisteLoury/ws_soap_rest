@@ -1,7 +1,8 @@
 package com.train.booking.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
@@ -10,11 +11,12 @@ import localhost.train.booking.Train;
 
 @Component
 public class FetchTrainHandler {
+
+    @Resource
+    RestHandler rest;
     
     public List<Train> handle(FetchTrainRequest request) {
-        List<Train> trains = new ArrayList<>();
-
-
+        List<Train> trains = rest.fetchTrains(request.getOrigin(), request.getDestination(), request.getTime());
 
         return trains;
     }

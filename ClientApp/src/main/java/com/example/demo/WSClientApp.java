@@ -126,10 +126,10 @@ public class WSClientApp {
 					fetchTrain();
 					break;
 				case 2:
-					bookTrain(token);
+					stay = bookTrain(token);
 					break;
 				case 3:
-					seeBooking(token);
+					stay = seeBooking(token);
 					break;
 				case 4:
 					System.out.println("Déconnexion");
@@ -211,7 +211,9 @@ public class WSClientApp {
 
 	}
 
-	private void bookTrain(String token) {
+	private boolean bookTrain(String token) {
+		boolean stayCo = true;
+
 		System.out.println("\n\n\n");
 		System.out.println("Réservation");
 
@@ -220,17 +222,43 @@ public class WSClientApp {
 
 		BookTrainResponse response = client.bookTrain(trainId, token);
 
+		switch(response.getSuccess()) {
+			case -1:
+				System.out.println("Identifiant du train incorrect ou inexistant.");
+				break;
+			case -2:
+				System.out.println("Votre session a expiré, vous allez être déconnecté.");
+				stayCo = false;
+				break;
+			case 1:
+				System.out.println("\nRéservation bien prise en compte !\n");
+				break;
+			default:
+				stayCo = false;
+				break;
+		}
+
+		return stayCo;
 	}
 
-	private void seeBooking(String token) {
+	private boolean seeBooking(String token) {
+		boolean stayCo = true;
 
 		SeeBookingResponse response = client.seeBooking(token);
 
 		System.out.println("\n\n\n");
-		System.out.println("Vos réservations :");
-		for(Train train : response.getTrains()) {
-			System.out.println("Gare de départ : "+train.getOrigin()+" | Gare d'arrivée : "+train.getDestination()+" : "+train.getId()+" | Date de départ : "+train.getDepartureTime()+" | Date d'arrivée : "+train.getArrivalTime());
+
+		if(response.isTokenValid()) {
+			System.out.println("Vos réservations :");
+			for(Train train : response.getTrains()) {
+				System.out.println("Identifiant : "+train.getId()+" | Gare de départ : "+train.getOrigin()+" | Gare d'arrivée : "+train.getDestination()+" : "+train.getId()+" | Date de départ : "+train.getDepartureTime()+" | Date d'arrivée : "+train.getArrivalTime());
+			}
+		} else {
+			System.out.println("Votre session a expiré, vous allez être déconnecté.");
+			stayCo = false;
 		}
 
+
+		return stayCo;
 	}
 }

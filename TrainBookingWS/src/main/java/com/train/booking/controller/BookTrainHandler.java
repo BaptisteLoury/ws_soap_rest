@@ -16,6 +16,8 @@ public class BookTrainHandler {
 
     @Resource
     private TokenManager tokenManager;
+    @Resource
+    private RestHandler rest;
 
     public int handle(BookTrainRequest request) {
         int success = -1;
@@ -23,8 +25,8 @@ public class BookTrainHandler {
         try {
             User usr = DatabaseManager.getInstance().getUser(request.getUserToken());
             if(!tokenManager.isTokenExpired(request.getUserToken())) {
-                
-
+                int reservId = rest.bookTrain(request.getTrainId(), usr.getLastName(), usr.getFirstName());
+                System.out.println(reservId);
 
                 success = 1;
             } else {

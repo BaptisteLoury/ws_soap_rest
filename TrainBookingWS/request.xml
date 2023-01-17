@@ -1,9 +1,14 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-				  xmlns:gs="http://localhost/train/booking">
-   <soapenv:Header/>
+   xmlns:gs="http://localhost/train/booking">
+   <soapenv:Header />
    <soapenv:Body>
-      <gs:getCountryRequest>
-         <gs:name>Spain</gs:name>
-      </gs:getCountryRequest>
+      <gs:fetchTrainRequest>
+         <gs:origin>Bordeaux</gs:origin>
+         <gs:destination>Paris</gs:destination>
+         <gs:time>2023-01-15</gs:time>
+         <gs:isDepartureTime>true</gs:isDepartureTime>
+      </gs:fetchTrainRequest>
+
    </soapenv:Body>
+
 </soapenv:Envelope>

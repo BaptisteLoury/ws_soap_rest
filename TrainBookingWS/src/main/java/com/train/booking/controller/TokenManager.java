@@ -29,7 +29,7 @@ public class TokenManager {
     public boolean isTokenExpired(String token) {
         boolean tokenExpired = true;
 
-        Pattern pattern = Pattern.compile("[a-zA-Z0-9]{10}(?<date>[0-9]{14})");
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9]{10}-(?<date>[0-9]{14})");
         Matcher matcher = pattern.matcher(token);
 
         if(matcher.matches()) {

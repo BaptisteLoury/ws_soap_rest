@@ -9,6 +9,7 @@ services:
      - "8181:8080"
     links: 
      - "postgres-soap:dbserver"
+     - "webserver:restserver"
   postgres-soap:
     container_name: postgres-soap
     environment:
@@ -21,6 +22,25 @@ services:
     restart: unless-stopped
     volumes:
     - postgres_data:/var/lib/postgresql/data:rw
+
+  webserver:
+    build:
+      context: .
+      dockerfile: ./Dockerfilephpwebserver
+    ports:
+     - "8080:80"
+    volumes:
+      - ./TrainFilteringWS:/var/www/html
+    links:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: rest
+    volumes:
+      - ./TrainFilteringWS/sql:/docker-entrypoint-initdb.d
 
 volumes:
   postgres_data: {}

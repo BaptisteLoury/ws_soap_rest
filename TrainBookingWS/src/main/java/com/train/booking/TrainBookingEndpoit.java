@@ -8,6 +8,8 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.train.booking.controller.BookTrainHandler;
+import com.train.booking.controller.FetchTrainHandler;
+import com.train.booking.controller.SeeBookingHandler;
 import com.train.booking.controller.SignInHandler;
 import com.train.booking.controller.SignUpHandler;
 
@@ -32,6 +34,10 @@ public class TrainBookingEndpoit {
 	private SignInHandler signIn;
 	@Resource
 	private BookTrainHandler bookTrain;
+	@Resource
+	private FetchTrainHandler fetchTrain;
+	@Resource
+	private SeeBookingHandler seeBooking;
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "signUpRequest")
 	@ResponsePayload
@@ -55,6 +61,8 @@ public class TrainBookingEndpoit {
 	@ResponsePayload
 	public FetchTrainResponse fetchTrain(@RequestPayload FetchTrainRequest request) {
 		FetchTrainResponse response = new FetchTrainResponse();
+		response.getTrains().addAll(fetchTrain.handle(request));
+		
 
 		return response;
 	}
@@ -71,7 +79,7 @@ public class TrainBookingEndpoit {
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "seeBookingRequest")
 	@ResponsePayload
 	public SeeBookingResponse seeBooking(@RequestPayload SeeBookingRequest request) {
-		SeeBookingResponse response = new SeeBookingResponse();
+		SeeBookingResponse response = seeBooking.handle(request);
 
 		return response;
 	}
