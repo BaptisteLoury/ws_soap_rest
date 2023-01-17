@@ -1,20 +1,10 @@
 <?php
     require_once 'controllers/db.php';
 
-    function test($args) {
-        echo "test";
-        var_dump($_POST);
-    }
-
     function get_trains($condition) {
-        $query = "SELECT * FROM TRAINS WHERE 1 ";
-        if ($condition != "") {
-            $query .= "$condition ";
-        }
+        $query = "SELECT * FROM TRAINS WHERE 1 $condition";
         $db = new Database();
-        $trains = $db->select($query);
-
-        return $trains;
+        return $db->select($query);
     }
 
     function get_train_info($args) {
@@ -44,7 +34,7 @@
         }
         if (!(count($args) == 4 || count($args) == 6)) {
             header('HTTP/1.1 412 Precondition Failed');
-            echo "412 Precondition Failed";
+            echo "412 Precondition Failed, parameters are not correct";
             return;
         }
         if (count($args) == 6) {
@@ -62,7 +52,7 @@
 
             }else{
                 header('HTTP/1.1 412 Precondition Failed');
-                echo "412 Precondition Failed";
+                echo "412 Precondition Failed, please use departure or arrival in the url";
                 return;
             }
         }
@@ -76,12 +66,12 @@
                 header('Content-Type: application/json');
                 echo json_encode($train);
             }else{
-                header('HTTP/1.1 412 Precondition Failed');
-                echo "412 Precondition Failed";
+                header('HTTP/1.1 404 Not Found');
+                echo "404 Not Found, please use a valid city name";
             }
         }else{
             header('HTTP/1.1 412 Precondition Failed');
-            echo "412 Precondition Failed";
+            echo "412 Precondition Failed, please use from and to parameters to specify the source and destination of the train";
         }
     }
 
@@ -107,26 +97,22 @@
         $db = new Database();
         $train = $db->select("SELECT * FROM TRAINS WHERE TRAIN_ID = $train_id");
         if (count($train) == 0) {
-            header('HTTP/1.1 412 Precondition Failed');
-            echo "412 Precondition Failed no train with this id";
+            header('HTTP/1.1 404 Not Found');
+            echo "404 Not Found";
             return;
         }
         $train = $train[0];
-        // var_dump($train);
 
         $personsintrain = $db->select("SELECT COUNT(*) AS p FROM RESERVATIONS WHERE TRAIN_ID = $train_id");
         $personsintrain = $personsintrain[0]['p'];
-        // echo $personsintrain;
         if ($personsintrain >= $train['TRAIN_AVAILABILITY']) {
-            header('HTTP/1.1 412 Precondition Failed');
-            echo "412 Precondition Failed no more seats";
+            header('HTTP/1.1 405 Method Not Allowed');
+            echo "405 Method Not Allowed, full seats";
             return;
         }
 
-
         $db->execute("INSERT INTO RESERVATIONS (RESERVATION_FIRSTNAME, RESERVATION_LASTNAME, TRAIN_ID) VALUES ('$first_name', '$last_name', $train_id)");
-        $reservation = $db->select("SELECT MAX(RESERVATION_ID) AS RESERVATION_ID FROM RESERVATIONS WHERE RESERVATION_FIRSTNAME = '$first_name' AND RESERVATION_LASTNAME = '$last_name' AND TRAIN_ID = $train_id");
-        $reservation = $reservation[0];
+        $reservation = $db->select("SELECT MAX(RESERVATION_ID) AS RESERVATION_ID FROM RESERVATIONS WHERE RESERVATION_FIRSTNAME = '$first_name' AND RESERVATION_LASTNAME = '$last_name' AND TRAIN_ID = $train_id")[0];
         header('HTTP/1.1 200 OK');
         header('Content-Type: application/json');
         echo json_encode($reservation);
@@ -137,18 +123,16 @@
             if (is_numeric($args[0])) {
                 $id = $args[0];
                 $db = new Database();
-                $reservation = $db->select("SELECT * FROM RESERVATIONS WHERE RESERVATION_ID = $id");
+                $reservation = $db->select("SELECT * FROM RESERVATIONS WHERE RESERVATION_ID = $id")[0];
                 if (count($reservation) == 0) {
-                    header('HTTP/1.1 412 Precondition Failed');
-                    echo "412 Precondition Failed no reservation with this id";
+                    header('HTTP/1.1 404 Not Found');
+                    echo "404 Not Found";
                     return;
                 }
-                $reservation = $reservation[0];
                 $first_name = $reservation['RESERVATION_FIRSTNAME'];
                 $last_name = $reservation['RESERVATION_LASTNAME'];
                 $train_id = $reservation['TRAIN_ID'];
-                $train = $db->select("SELECT * FROM TRAINS WHERE TRAIN_ID = $train_id");
-                $train = $train[0];
+                $train = $db->select("SELECT * FROM TRAINS WHERE TRAIN_ID = $train_id")[0];
                 $reservation['TRAIN'] = $train;
                 $reservation['RESERVATION_FIRSTNAME'] = $first_name;
                 $reservation['RESERVATION_LASTNAME'] = $last_name;
@@ -159,7 +143,17 @@
             }
         }elseif (count($args) == 0) {
             $db = new Database();
-            $reservation = $db->select("SELECT * FROM RESERVATIONS");
+            $reservation = $db->select("SELECT * FROM RESERVATIONS")[0];
+            $reservation = $reservation[0];
+            $first_name = $reservation['RESERVATION_FIRSTNAME'];
+            $last_name = $reservation['RESERVATION_LASTNAME'];
+            $train_id = $reservation['TRAIN_ID'];
+            $train = $db->select("SELECT * FROM TRAINS WHERE TRAIN_ID = $train_id");
+            $train = $train[0];
+            $reservation['TRAIN'] = $train;
+            $reservation['RESERVATION_FIRSTNAME'] = $first_name;
+            $reservation['RESERVATION_LASTNAME'] = $last_name;
+            unset($reservation['TRAIN_ID']);
             header('HTTP/1.1 200 OK');
             header('Content-Type: application/json');
             echo json_encode($reservation);
