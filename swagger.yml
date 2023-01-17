@@ -1,5 +1,8 @@
 openapi: 3.0.0
 servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/fredidas/wsfiltering/1.0.0
   - description: REST API Train Filtering
     url: https://localhost:80
 info:
@@ -220,7 +223,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: {"RESERVATION_ID":"1","RESERVATION_LASTNAME":"Doe","RESERVATION_FIRSTNAME":"John","TRAIN_ID":"1"}
+                example: {"RESERVATION_ID":"1","RESERVATION_LASTNAME":"Doe","RESERVATION_FIRSTNAME":"John","TRAIN":{"TRAIN_ID":"1","TRAIN_NAME":"TGV","TRAIN_SOURCE":"Bordeaux","TRAIN_DESTINATION":"Paris","TRAIN_DEPARTURE_TIME":"13:00","TRAIN_ARRIVAL_TIME":"16:00","TRAIN_DEPARTURE_DATE":"2022-11-24","TRAIN_ARRIVAL_DATE":"2022-11-24","TRAIN_PRICE":"64","TRAIN_AVAILABILITY":"47"}}
         '404':
           description: Reservation not found
           content:

@@ -12,6 +12,11 @@
             if (is_numeric($args[0])) {
                 $id = $args[0];
                 $train = get_trains("AND TRAIN_ID = $id");
+                if (count($train) == 0) {
+                    header('HTTP/1.1 404 Not Found');
+                    echo "404 Not Found";
+                    return;
+                }
                 header('HTTP/1.1 200 OK');
                 header('Content-Type: application/json');
                 echo json_encode($train[0]);
