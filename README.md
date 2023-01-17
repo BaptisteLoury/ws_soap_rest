@@ -2,7 +2,13 @@
 
 ## Requirements
 
-Docker and eventually Maven
+Git, Docker and eventually Maven
+
+## Clone the public repository
+
+    git clone git@github.com:BaptisteLoury/ws_soap_rest.git
+or
+    git clone https://github.com/BaptisteLoury/ws_soap_rest.git
 
 ## I .jar and .war files are not present (they should be)
 Go in TrainBookingWS then execute
