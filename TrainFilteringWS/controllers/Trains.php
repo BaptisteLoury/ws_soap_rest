@@ -127,6 +127,52 @@
         echo json_encode($reservation[0]);
     }
 
+    function add_reservation_json($args) {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+        $_POST = $data;
+
+        if (!isset($_POST['train_id']) || !isset($_POST['first_name']) || !isset($_POST['last_name'])) {
+            header('HTTP/1.1 412 Precondition Failed');
+            echo "412 Precondition Failed";
+            return;
+        }
+        if (!is_numeric($_POST['train_id'])) {
+            header('HTTP/1.1 412 Precondition Failed train id not numeric');
+            echo "412 Precondition Failed";
+            return;
+        }
+        $train_id = $_POST['train_id'];
+        $first_name = htmlspecialchars($_POST['first_name']);
+        $last_name = htmlspecialchars($_POST['last_name']);
+
+        $db = new Database();
+        $train = $db->select("SELECT * FROM TRAINS WHERE TRAIN_ID = $train_id");
+        if (count($train) == 0) {
+            header('HTTP/1.1 412 Precondition Failed');
+            echo "412 Precondition Failed no train with this id";
+            return;
+        }
+        $train = $train[0];
+        // var_dump($train);
+
+        $personsintrain = $db->select("SELECT COUNT(*) AS p FROM RESERVATIONS WHERE TRAIN_ID = $train_id");
+        $personsintrain = $personsintrain[0]['p'];
+        // echo $personsintrain;
+        if ($personsintrain >= $train['TRAIN_AVAILABILITY']) {
+            header('HTTP/1.1 412 Precondition Failed');
+            echo "412 Precondition Failed no more seats";
+            return;
+        }
+
+
+        $db->execute("INSERT INTO RESERVATIONS (RESERVATION_FIRSTNAME, RESERVATION_LASTNAME, TRAIN_ID) VALUES ('$first_name', '$last_name', $train_id)");
+        $reservation = $db->select("SELECT MAX(RESERVATION_ID) AS RESERVATION_ID FROM RESERVATIONS WHERE RESERVATION_FIRSTNAME = '$first_name' AND RESERVATION_LASTNAME = '$last_name' AND TRAIN_ID = $train_id");
+        header('HTTP/1.1 200 OK');
+        header('Content-Type: application/json');
+        echo json_encode($reservation[0]);
+    }
+
     function get_reservation($args) {
         if (count($args) == 1) {
             if (is_numeric($args[0])) {

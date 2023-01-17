@@ -20,6 +20,7 @@
     $route->add('/trains/from/[a-zA-Z]+/to/[a-zA-Z]+/arrival/[0-9]{4}(-[0-9]{2}){2}_[0-9]{2}:[0-9]{2}', 'get_train_info_destination', 'GET');
     
     $route->add('/reservations', 'add_reservation', 'POST');
+    $route->add('/reservationsjson', 'add_reservation_json', 'POST');
     $route->add('/reservations/[0-9]+', 'get_reservation', 'GET');
 
     $route->add('/test', 'test', 'GET');

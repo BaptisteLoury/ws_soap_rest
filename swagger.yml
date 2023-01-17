@@ -183,13 +183,13 @@ paths:
             schema:
               type: object
               properties:
-                reservation_train_id:
+                train_id:
                   type: string
                   example: 1
-                reservation_lastname:
+                last_name:
                   type: string
                   example: Doe
-                reservation_firstname:
+                first_name:
                   type: string
                   example: John
       responses:
@@ -199,7 +199,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: 1
+                example: {"RESERVATION_ID": "2"}
   /reservations/{reservation_id}:
     get:
       tags:
@@ -220,7 +220,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: {"RESERVATION_ID":"1","RESERVATION_TRAIN_ID":"1","RESERVATION_LASTNAME":"Doe","RESERVATION_FIRSTNAME":"John"}
+                example: {"RESERVATION_ID":"1","RESERVATION_LASTNAME":"Doe","RESERVATION_FIRSTNAME":"John","TRAIN_ID":"1"}
         '404':
           description: Reservation not found
           content:
