@@ -166,4 +166,31 @@
             echo json_encode($reservations);
         }
     }
+
+    function delete_reservation($args) {
+        if (count($args) != 0) {
+            header('HTTP/1.1 412 Precondition Failed');
+            echo "412 Precondition Failed";
+        }
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+        if (!isset($data['reservation_id'])) {
+            header('HTTP/1.1 412 Precondition Failed');
+            echo "412 Precondition Failed";
+        }
+        $reservation_id = $data['reservation_id'];
+        if (!is_numeric($reservation_id)) {
+            header('HTTP/1.1 412 Precondition Failed');
+            echo "412 Precondition Failed";
+        }
+        $db = new Database();
+        if (count($db->select("SELECT * FROM RESERVATIONS WHERE RESERVATION_ID = $reservation_id")) == 0) {
+            header('HTTP/1.1 404 Not Found');
+            echo "404 Not Found";
+            return;
+        }
+        $db->execute("DELETE FROM RESERVATIONS WHERE RESERVATION_ID = $reservation_id");
+        header('HTTP/1.1 200 OK');
+        echo "200 OK";
+    }
 ?>

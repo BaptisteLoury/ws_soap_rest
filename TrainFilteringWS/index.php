@@ -20,6 +20,8 @@
     $route->add('/reservations/[0-9]+', 'get_reservation', 'GET');
     $route->add('/reservations', 'get_reservation', 'GET');
 
+    $route->add('/reservations', 'delete_reservation', 'DELETE');
+
     $route->submit();
 
 ?>
