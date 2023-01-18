@@ -10,7 +10,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.train.booking.model.rest.ReservationRest;
@@ -35,14 +34,18 @@ public class RestHandler {
             url += "/arrival/"+time;
         }
 
-        TrainRest[] trainArr = template.getForObject(url, TrainRest[].class);
-
-        System.err.println(trainArr);
-
         List<Train> trains = new ArrayList<>();
-        if(trainArr != null) {
-            trains = Arrays.asList(trainArr).stream().map(TrainRest::toSoapTrain).collect(Collectors.toList());
+        try {
+            TrainRest[] trainArr = template.getForObject(url, TrainRest[].class);
+    
+            if(trainArr != null) {
+                trains = Arrays.asList(trainArr).stream().map(TrainRest::toSoapTrain).collect(Collectors.toList());
+            }
+
+        } catch(Exception e) {
+            // do nothing
         }
+
         return trains;
     }
 
@@ -60,7 +63,7 @@ public class RestHandler {
         ReservationRest reserv = null;
         try {
             reserv = template.postForObject(reservUrl, request, ReservationRest.class);
-        } catch(RestClientException e) {
+        } catch(Exception e) {
             // do nothing
         }
 
@@ -74,7 +77,11 @@ public class RestHandler {
     public ReservationRest seeBooking(int reservationId) {
         ReservationRest reserv = new ReservationRest();
 
-        reserv = template.getForObject(reservUrl+"/"+reservationId, ReservationRest.class);
+        try {
+            reserv = template.getForObject(reservUrl+"/"+reservationId, ReservationRest.class);
+        } catch(Exception e) {
+            // do nothing
+        }
 
         return reserv;
     }
