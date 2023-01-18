@@ -148,20 +148,22 @@
             }
         }elseif (count($args) == 0) {
             $db = new Database();
-            $reservation = $db->select("SELECT * FROM RESERVATIONS")[0];
-            $reservation = $reservation[0];
-            $first_name = $reservation['RESERVATION_FIRSTNAME'];
-            $last_name = $reservation['RESERVATION_LASTNAME'];
-            $train_id = $reservation['TRAIN_ID'];
-            $train = $db->select("SELECT * FROM TRAINS WHERE TRAIN_ID = $train_id");
-            $train = $train[0];
-            $reservation['TRAIN'] = $train;
-            $reservation['RESERVATION_FIRSTNAME'] = $first_name;
-            $reservation['RESERVATION_LASTNAME'] = $last_name;
-            unset($reservation['TRAIN_ID']);
+            $reservation = $db->select("SELECT * FROM RESERVATIONS");
+            $reservations = array();
+            foreach ($reservation as $key => $value) {
+                $first_name = $value['RESERVATION_FIRSTNAME'];
+                $last_name = $value['RESERVATION_LASTNAME'];
+                $train_id = $value['TRAIN_ID'];
+                $train = $db->select("SELECT * FROM TRAINS WHERE TRAIN_ID = $train_id")[0];
+                $reservation[$key]['TRAIN'] = $train;
+                $reservation[$key]['RESERVATION_FIRSTNAME'] = $first_name;
+                $reservation[$key]['RESERVATION_LASTNAME'] = $last_name;
+                unset($reservation[$key]['TRAIN_ID']);
+                $reservations[] = $reservation[$key];
+            }
             header('HTTP/1.1 200 OK');
             header('Content-Type: application/json');
-            echo json_encode($reservation);
+            echo json_encode($reservations);
         }
     }
 ?>
