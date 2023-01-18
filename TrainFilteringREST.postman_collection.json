@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "750a3b0e-7243-49ed-92b4-73f92874ed13",
+		"name": "TrainFilteringREST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23533391"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/trains",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/trains",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trains"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/trains/4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/trains/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trains",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/reservations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/reservations",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/reservations/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/reservations/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reservations",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/reservations",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"train_id\": \"1\",\r\n    \"first_name\": \"David\",\r\n    \"last_name\": \"Tchilian\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/reservations",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/trains/from/Paris/to/Marseille",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/trains/from/Paris/to/Marseille",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trains",
+						"from",
+						"Paris",
+						"to",
+						"Marseille"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/trains/from/Paris/to/Marseille/departure/2022-12-02_15:00",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/trains/from/Paris/to/Marseille/departure/2022-12-02_15:00",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trains",
+						"from",
+						"Paris",
+						"to",
+						"Marseille",
+						"departure",
+						"2022-12-02_15:00"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
